@@ -6,56 +6,73 @@ import { CTASection } from "@/components/sections/CTASection";
 export default function Contact() {
   return (
     <>
-      {/* Hero Section */}
       <Hero
         eyebrow="Get in touch"
-        title="Let's build something amazing together"
-        subtitle="I'm passionate about creating innovative software solutions and eager to contribute to your development team's success."
-        imageUrl="https://images.unsplash.com/photo-1551434678-e076c223a692?w=1600&q=80&auto=format&fit=crop"
+        title="Call for your free consultation"
+        subtitle="I'll review your insurance offer and vehicle details to give you an honest assessment of whether an appraisal makes sense for your situation."
+        imageUrl="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1600&q=80&auto=format&fit=crop"
         overlay
         align="center"
         height="md"
-        ctaPrimary={{ label: "Send me a message", to: "#contact-form" }}
-        ctaSecondary={{ label: "Download Resume", to: "/Jared-Hawkins-Young-Resume.pdf" }}
+        ctaPrimary={{ label: "Call 704-216-0081", to: "tel:704-216-0081" }}
+        ctaSecondary={{ label: "Send a message", to: "#contact-form" }}
       />
 
-      {/* Contact Information */}
       <ContactBlock
         heading="Contact Information"
-        subheading="Let's connect and discuss opportunities"
+        subheading="Reach out for your free consultation"
         channels={[
-          { type: "email", value: "jared.hawkins.young@email.com" },
-          { type: "address", value: "Charlotte, NC" },
-          { type: "custom", label: "GitHub", value: "github.com/jaredhawkinsyoung" },
-          { type: "custom", label: "LinkedIn", value: "linkedin.com/in/jaredhawkinsyoung" },
-          { type: "hours", value: "Available for interviews Mon-Fri" },
+          { type: "phone", value: "704-216-0081" },
+          { type: "email", value: "csi@csi-nc.net" },
+          { type: "address", value: "Serving all of North Carolina" },
+          { type: "hours", value: "Mon–Fri 10am–6pm, weekends potluck calls" },
         ]}
       />
 
-      {/* Contact Form */}
       <div id="contact-form">
         <ContactForm
           heading="Send me a message"
-          subheading="I'd love to hear about software development opportunities and technical challenges"
-          emailTo="jared.hawkins.young@email.com"
-          subjectPrefix="Software Developer Inquiry"
+          subheading="Prefer to start with a message? Include your vehicle details and insurance offer information."
+          emailTo="csi@csi-nc.net"
+          subjectPrefix="Auto Appraisal Inquiry"
           services={[
-            { value: "job-opportunity", label: "Job Opportunity" },
-            { value: "project-collaboration", label: "Project Collaboration" },
-            { value: "technical-consultation", label: "Technical Consultation" },
-            { value: "code-review", label: "Code Review" },
-            { value: "networking", label: "Networking" },
+            { value: "total-loss", label: "Total Loss Appraisal" },
+            { value: "diminished-value", label: "Diminished Value Claim" },
+            { value: "consultation", label: "General Consultation" },
             { value: "other", label: "Other" },
           ]}
         />
       </div>
 
-      {/* Resume CTA */}
+      <section className="py-24 bg-muted/50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-4xl font-bold text-center mb-12">What to Have Ready</h2>
+            <div className="prose prose-lg mx-auto text-muted-foreground">
+              <p className="text-lg leading-relaxed mb-6">
+                When you call, it's helpful to have the following information available:
+              </p>
+              <ul className="text-lg leading-relaxed mb-6 space-y-2">
+                <li>• Your vehicle's year, make, model, and trim level</li>
+                <li>• Mileage and overall condition before the accident</li>
+                <li>• Insurance company's total loss offer amount</li>
+                <li>• Any factory options or packages on your vehicle</li>
+                <li>• Photos of your vehicle (if available)</li>
+              </ul>
+              <p className="text-lg leading-relaxed">
+                Don't worry if you don't have all of this – we can work with whatever information 
+                you have and guide you on gathering additional details if needed.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <CTASection
-        eyebrow="Want the full details?"
-        heading="Download my complete resume"
-        subheading="Get a comprehensive overview of my technical skills, projects, and educational background in software development."
-        button={{ label: "Download Resume", to: "/Jared-Hawkins-Young-Resume.pdf" }}
+        eyebrow="Ready to get started?"
+        heading="Call for your free consultation"
+        subheading="No obligation, no pressure – just an honest assessment of whether an appraisal makes sense for your case."
+        button={{ label: "Call 704-216-0081", to: "tel:704-216-0081" }}
       />
     </>
   );

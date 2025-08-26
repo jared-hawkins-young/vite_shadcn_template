@@ -1,9 +1,8 @@
 import Home from "@/pages/Home";
+import TotalLoss from "@/pages/TotalLoss";
+import DiminishedValue from "@/pages/DiminishedValue";
 import About from "@/pages/About";
-import Skills from "@/pages/Skills";
-import Experience from "@/pages/Experience";
-import Education from "@/pages/Education";
-import Leadership from "@/pages/Leadership";
+import Insights from "@/pages/Insights";
 import Contact from "@/pages/Contact";
 
 export type RouteItem = {
@@ -15,13 +14,13 @@ export type RouteItem = {
 };
 
 export const brand = {
-  title: "Jared Hawkins-Young",
-  logo: { text: "JHY", src: null, alt: null },
+  title: "CSI-NC",
+  logo: { text: "CSI-NC", src: null, alt: null },
 } as const;
 
 export const header = {
   sticky: true,
-  cta: { label: "Download Resume", to: "/Jared-Hawkins-Young-Resume.pdf"}, // optional, set to null if unused
+  cta: { label: "Call 704-216-0081", to: "tel:704-216-0081"}, // optional, set to null if unused
 } as const;
 
 export const footer = {
@@ -29,15 +28,14 @@ export const footer = {
     { label: "Privacy", to: "#" },
     { label: "Terms", to: "#" },
   ],
-  copyright: "© 2025 Jared Hawkins-Young",
+  copyright: "© 2025 CSI-NC - Danny Wyatt",
 } as const;
 
 export const routes: RouteItem[] = [
   { label: "Home", path: "/", component: Home, show: true },
+  { label: "Total Loss", path: "/total-loss", component: TotalLoss, show: true },
+  { label: "Diminished Value", path: "/diminished-value", component: DiminishedValue, show: true },
   { label: "About", path: "/about", component: About, show: true },
-  { label: "Skills", path: "/skills", component: Skills, show: true },
-  { label: "Experience", path: "/experience", component: Experience, show: true },
-  { label: "Education", path: "/education", component: Education, show: true },
-  { label: "Leadership", path: "/leadership", component: Leadership, show: true },
+  { label: "Insights", path: "/insights", component: Insights, show: true },
   { label: "Contact", path: "/contact", component: Contact, show: true },
 ];
