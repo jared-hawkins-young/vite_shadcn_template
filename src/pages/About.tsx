@@ -1,97 +1,109 @@
-// src/pages/About.tsx
-import { ProcessTimeline } from "@/components/sections/ProcessTimeline"
-import { TeamShowcase } from "@/components/sections/TeamShowcase"
-import { BlogGrid } from "@/components/sections/BlogGrid"
-import { MapEmbed } from "@/components/sections/MapEmbed"
+import { Hero } from "@/components/sections/Hero";
+import { CTASection } from "@/components/sections/CTASection";
 
 export default function About() {
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Hero */}
-      <section className="relative h-96 text-white overflow-hidden">
-        <img
-          src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2000"
-          alt="About Lost Star"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-black/50" />
-        <div className="relative z-10 flex items-center justify-center h-full">
-          <h1 className="text-5xl md:text-6xl font-bold">About Us</h1>
+    <>
+      {/* Hero Section */}
+      <Hero
+        eyebrow="About Jared"
+        title="Building the future through code and collaboration"
+        subtitle="A passionate software engineer dedicated to creating scalable systems and innovative AI applications that make a real difference."
+        imageUrl="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1600&q=80&auto=format&fit=crop"
+        overlay
+        align="center"
+        height="md"
+        ctaPrimary={{ label: "View My Skills", to: "/skills" }}
+        ctaSecondary={{ label: "Download Resume", to: "/Jared-Hawkins-Young-Resume.pdf" }}
+      />
+
+      {/* Objective & Introduction */}
+      <section className="py-24">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-4xl font-bold text-center mb-12">My Objective</h2>
+            <div className="prose prose-lg mx-auto text-muted-foreground">
+              <p className="text-lg leading-relaxed mb-6">
+                As a recent Computer Science graduate from UNC Charlotte with a concentration in Data Science, 
+                I'm passionate about leveraging technology to solve complex problems and create meaningful impact. 
+                My academic foundation, combined with hands-on project experience, has prepared me to contribute 
+                immediately to development teams building the next generation of software solutions.
+              </p>
+              <p className="text-lg leading-relaxed mb-6">
+                My interests span the full spectrum of modern software development, from building scalable backend 
+                systems and cloud-native applications to developing intelligent AI/ML solutions that enhance user 
+                experiences. I'm particularly drawn to the intersection of data science and software engineering, 
+                where analytical insights drive better product decisions and user outcomes.
+              </p>
+              <p className="text-lg leading-relaxed mb-6">
+                What excites me most about software development is the collaborative nature of building something 
+                larger than any individual could create alone. I thrive in team environments where diverse perspectives 
+                come together to solve challenging problems, and I'm always eager to learn from experienced developers 
+                while contributing my fresh insights and enthusiasm for emerging technologies.
+              </p>
+              <p className="text-lg leading-relaxed">
+                I'm actively seeking opportunities to join a development team where I can apply my technical skills, 
+                continue learning, and contribute to building software that makes a positive impact on users and 
+                businesses alike. Whether it's optimizing system performance, implementing machine learning models, 
+                or designing intuitive user interfaces, I'm ready to tackle whatever challenges come my way.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Process Timeline */}
-      <ProcessTimeline
-        heading="Our Process"
-        subheading="A simple path from idea to launch"
-        steps={[
-          {
-            title: "Discovery",
-            description:
-              "We learn your goals, audiences, and success metrics, then propose the best path forward.",
-          },
-          {
-            title: "Design & Plan",
-            description:
-              "User-first wireframes, content guidance, and timelines—aligned with your brand.",
-          },
-          {
-            title: "Build",
-            description:
-              "We implement with shadcn/ui, Tailwind, and your theme tokens for a polished experience.",
-          },
-          {
-            title: "Launch & Iterate",
-            description:
-              "Deploy, measure with PostHog, and iterate based on real user behavior.",
-          },
-        ]}
-      />
+      {/* Areas of Focus */}
+      <section className="py-24 bg-muted/50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">Areas of Focus</h2>
+            <p className="mt-3 text-muted-foreground">Key areas where I'm building expertise and looking to contribute</p>
+          </div>
+          
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
+            <div className="bg-card rounded-2xl p-6 shadow-lg">
+              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                <span className="text-xl">⚡</span>
+              </div>
+              <h3 className="text-xl font-semibold text-foreground mb-3">Scalable Systems</h3>
+              <p className="text-muted-foreground">
+                Building robust, scalable applications using cloud platforms and modern architectures 
+                that can grow with business needs and handle increasing user demands.
+              </p>
+            </div>
 
-      {/* Team Showcase */}
-      <TeamShowcase
-        heading="Meet the Team"
-        subheading="People who care about outcomes"
-        members={[
-          { name: "Gabriel Chandler", role: "Founder & Lead Engineer", photo: "https://randomuser.me/api/portraits/men/42.jpg" },
-          { name: "Sarah Lee", role: "Marketing Lead", photo: "https://randomuser.me/api/portraits/women/65.jpg" },
-          { name: "James Carter", role: "Technical Director", photo: "https://randomuser.me/api/portraits/men/75.jpg" },
-          { name: "Anna Smith", role: "Customer Success", photo: "https://randomuser.me/api/portraits/women/32.jpg" },
-        ]}
-      />
+            <div className="bg-card rounded-2xl p-6 shadow-lg">
+              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                <span className="text-xl">🤖</span>
+              </div>
+              <h3 className="text-xl font-semibold text-foreground mb-3">AI/ML Applications</h3>
+              <p className="text-muted-foreground">
+                Developing intelligent applications using machine learning frameworks and AI tools 
+                to create smarter, more responsive software solutions.
+              </p>
+            </div>
 
-      {/* Blog Grid */}
-      <BlogGrid
-        heading="From the Blog"
-        subheading="Practical tips and playbooks for small businesses"
-        posts={[
-          {
-            title: "How AI Agents Save Hours Every Week",
-            excerpt: "Email triage, call routing, and lead qualification—on autopilot.",
-            image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800",
-            href: "#",
-          },
-          {
-            title: "The 2025 Website Checklist",
-            excerpt: "What every small business site needs to convert and rank.",
-            image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800",
-            href: "#",
-          },
-          {
-            title: "Automation You Can Ship in a Week",
-            excerpt: "Simple workflows that make a big difference.",
-            image: "https://images.unsplash.com/photo-1556155092-8707de31f9c4?w=800",
-            href: "#",
-          },
-        ]}
-      />
+            <div className="bg-card rounded-2xl p-6 shadow-lg">
+              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                <span className="text-xl">📊</span>
+              </div>
+              <h3 className="text-xl font-semibold text-foreground mb-3">Data-Driven Development</h3>
+              <p className="text-muted-foreground">
+                Leveraging data analysis and visualization to inform development decisions and 
+                create software that truly serves user needs and business objectives.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      {/* Map / Location */}
-      <MapEmbed
-        heading="Where We Operate"
-        subheading="Wilmington, North Carolina"
-        query="Wilmington, NC"
+      {/* CTA Section */}
+      <CTASection
+        eyebrow="Let's connect"
+        heading="Ready to discuss opportunities?"
+        subheading="I'd love to learn more about your team and explore how I can contribute to your development projects."
+        button={{ label: "Contact Me", to: "/contact" }}
       />
-    </div>
-  )
+    </>
+  );
 }

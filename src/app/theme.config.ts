@@ -1,6 +1,6 @@
 export type ThemeKey = "slate" | "ocean" | "emerald" | "rose";
 
-export const activeTheme: ThemeKey = "rose";
+export const activeTheme: ThemeKey = "ocean";
 
 export const themes: Record<ThemeKey, Record<string, string>> = {
   slate: {
