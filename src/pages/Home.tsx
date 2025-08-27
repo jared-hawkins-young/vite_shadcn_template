@@ -1,6 +1,6 @@
 import { Hero } from "@/components/sections/Hero";
-import { ServiceCards } from "@/components/sections/ServiceCards";
 import { FeatureShowcase } from "@/components/sections/FeatureShowcase";
+import { ServiceCards } from "@/components/sections/ServiceCards";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { CTASection } from "@/components/sections/CTASection";
 
@@ -8,73 +8,78 @@ export default function Home() {
   return (
     <>
       <Hero
-        eyebrow="North Carolina Auto Appraisals"
-        title="Straightforward Auto Appraisals"
-        subtitle="Get what your vehicle is actually worth. Independent auto appraiser serving North Carolina drivers with honest, accurate valuations."
-        imageUrl="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1600&q=80&auto=format&fit=crop"
+        eyebrow="Welcome to our Demo"
+        title="Beautiful websites made simple"
+        subtitle="This is a demo template showcasing modern web design with React, TypeScript, and shadcn/ui components. Perfect for building your next project."
+        imageUrl="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&q=80&auto=format&fit=crop"
         overlay
         align="center"
         height="lg"
-        ctaPrimary={{ label: "Call for Free Consult", to: "tel:704-216-0081" }}
-        ctaSecondary={{ label: "Learn About Services", to: "#services" }}
+        ctaPrimary={{ label: "Get Started", to: "/contact" }}
+        ctaSecondary={{ label: "Learn More", to: "/about" }}
       />
 
-      <div id="services">
-        <ServiceCards
-          heading="Auto Appraisal Services"
-          subheading="Specialized expertise for North Carolina drivers"
-          items={[
-            {
-              icon: "🎯",
-              title: "Total Loss Appraisals",
-              desc: "Get accurate valuations when insurance companies undervalue your total loss claim. Option-specific comps and detailed documentation.",
-              price: "Primary Focus",
-              cta: { label: "Learn More", to: "/total-loss" }
-            },
-            {
-              icon: "📉",
-              title: "Diminished Value",
-              desc: "Recover compensation for your vehicle's decreased value after an accident. Realistic expectations and honest assessments.",
-              price: "Secondary Service",
-              cta: { label: "Learn More", to: "/diminished-value" }
-            }
-          ]}
-        />
-      </div>
-
       <FeatureShowcase
-        heading="Why Choose CSI-NC"
-        subheading="Transparent service with North Carolina expertise"
+        heading="Why Choose Our Template"
+        subheading="Modern tools and practices for building exceptional web experiences"
         items={[
           {
-            icon: "🏠",
-            title: "Local North Carolina",
-            desc: "Deep understanding of NC Total Loss Rule and local market conditions. Serving NC drivers exclusively."
+            icon: "⚡",
+            title: "Lightning Fast",
+            desc: "Built with Vite for instant hot reload and optimized production builds that load in milliseconds."
           },
+          {
+            icon: "🎨",
+            title: "Beautiful Design",
+            desc: "Clean, modern UI components built with shadcn/ui and Tailwind CSS for stunning visual appeal."
+          },
+          {
+            icon: "🔧",
+            title: "Developer Friendly",
+            desc: "TypeScript support, ESLint configuration, and well-organized code structure for easy customization."
+          },
+          {
+            icon: "📱",
+            title: "Fully Responsive",
+            desc: "Looks perfect on desktop, tablet, and mobile devices with responsive design patterns."
+          },
+          {
+            icon: "🚀",
+            title: "Production Ready",
+            desc: "Optimized bundle size, SEO-friendly structure, and deployment-ready configuration."
+          },
+          {
+            icon: "🔒",
+            title: "Type Safe",
+            desc: "Full TypeScript integration ensures fewer bugs and better developer experience."
+          }
+        ]}
+      />
+
+      <ServiceCards
+        heading="Template Features"
+        subheading="Everything you need to build amazing websites"
+        items={[
           {
             icon: "🎯",
-            title: "Option-Accurate Comparables",
-            desc: "I research vehicles with your exact options and packages, not just base models. This attention to detail often adds thousands to valuations."
+            title: "Component Library",
+            desc: "Pre-built, customizable components for common website sections like heroes, features, and testimonials.",
+            price: "Included",
+            cta: { label: "Explore Components", to: "/about" }
           },
           {
-            icon: "✅",
-            title: "Honest Outcomes",
-            desc: "No overselling or false promises. I'll give you a realistic assessment of your case and whether an appraisal makes financial sense."
+            icon: "🎨",
+            title: "Design System",
+            desc: "Consistent theming, color schemes, and typography that you can easily customize to match your brand.",
+            price: "Included",
+            cta: { label: "View Design", to: "/about" }
           },
           {
-            icon: "💰",
-            title: "Fair Pricing",
-            desc: "Transparent pricing with no surprises. I'll explain costs upfront during your free consultation."
-          },
-          {
-            icon: "🤝",
-            title: "Service Over Sales",
-            desc: "My goal is to provide valuable service, not just sell appraisals. Sometimes I'll recommend against an appraisal if it doesn't make sense."
-          },
-          {
-            icon: "📞",
-            title: "Straightforward Communication",
-            desc: "No fluff or industry jargon. Clear explanations of your options and what to expect throughout the process."
+            icon: "📖",
+            title: "Documentation",
+            desc: "Comprehensive guides and examples to help you get started quickly and customize everything to your needs.",
+            price: "Included",
+            cta: { label: "Read Docs", to: "/contact" }
           }
         ]}
       />
@@ -82,21 +87,22 @@ export default function Home() {
       <section className="py-24 bg-muted/50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl font-bold text-center mb-12">Recent Success Example</h2>
+            <h2 className="text-4xl font-bold text-center mb-12">Built with Modern Technology</h2>
             <div className="prose prose-lg mx-auto text-muted-foreground">
               <p className="text-lg leading-relaxed mb-6">
-                <strong>2021 Chevy Silverado High Country:</strong> Insurance company offered $38,500 for this total loss claim. 
-                After reviewing the vehicle's options package and researching comparable trucks with matching features, 
-                I documented an actual cash value of $44,200.
+                This template showcases the latest in web development technology. Built with React 18, 
+                TypeScript, and Vite for an exceptional developer experience. The UI components are 
+                powered by shadcn/ui and styled with Tailwind CSS for rapid customization.
               </p>
               <p className="text-lg leading-relaxed mb-6">
-                <strong>The difference?</strong> The insurance company used comparables for base model Silverados, 
-                ignoring the High Country package worth several thousand dollars. My detailed appraisal showed 
-                exactly what those options were worth in the current market.
+                Whether you're building a marketing site, portfolio, or web application, this template 
+                provides a solid foundation with modern best practices, accessibility features, and 
+                responsive design out of the box.
               </p>
               <p className="text-lg leading-relaxed">
-                <strong>Result:</strong> The insurance company increased their settlement by $5,700 after reviewing 
-                my appraisal documentation. The client's appraisal fee was covered many times over.
+                The component-based architecture makes it easy to add new sections, customize existing 
+                ones, and maintain consistency across your entire website. Get started in minutes, 
+                not hours.
               </p>
             </div>
           </div>
@@ -104,26 +110,26 @@ export default function Home() {
       </section>
 
       <Testimonials
-        heading="What Clients Say"
+        heading="What Developers Say"
         items={[
           {
-            who: "Mike R., Charlotte",
-            when: "November 2024",
-            text: "Danny saved me thousands on my total loss claim. The insurance company's offer was way too low, but Danny's appraisal got them to add $4,800 to the settlement. Worth every penny."
+            who: "Sarah Chen, Frontend Developer",
+            when: "React Developer",
+            text: "This template saved me weeks of setup time. The component library is comprehensive and the TypeScript integration is flawless. Highly recommended for any React project."
           },
           {
-            who: "Sarah K., Raleigh",
-            when: "October 2024",
-            text: "Honest and straightforward – exactly what you want in an appraiser. Danny told me upfront what to expect and delivered exactly what he promised. No surprises, no runaround."
+            who: "Marcus Rodriguez, UI Designer",
+            when: "Design Systems Lead",
+            text: "Beautiful design out of the box with easy customization options. The shadcn/ui components are well-implemented and the overall architecture is solid."
           }
         ]}
       />
 
       <CTASection
         eyebrow="Ready to get started?"
-        heading="Call for your free consultation"
-        subheading="I'll review your insurance offer and vehicle details to give you an honest assessment of whether an appraisal makes sense for your situation."
-        button={{ label: "Call 704-216-0081", to: "tel:704-216-0081" }}
+        heading="Build your next project with confidence"
+        subheading="Download this template and start building beautiful, modern websites with React, TypeScript, and shadcn/ui components."
+        button={{ label: "Get Started", to: "/contact" }}
       />
     </>
   );

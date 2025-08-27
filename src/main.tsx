@@ -27,6 +27,11 @@ function Analytics() {
     });
   }, [location.pathname, location.search, location.hash]);
 
+  useEffect(() => {
+    // Scroll to top on pathname change (but not on hash-only changes)
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   return null;
 }
 
