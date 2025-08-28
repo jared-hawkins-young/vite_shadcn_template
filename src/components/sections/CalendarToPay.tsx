@@ -102,8 +102,14 @@ export default function CalendarToPay({
     return new Date(d.getFullYear(), d.getMonth(), 1);
   });
 
-  const selectedTrip = useMemo(() => tripOptions.find((t) => t.id === selectedTripId), [tripOptions, selectedTripId]);
-  const categories = useMemo(() => ["All", ...Array.from(new Set(tripOptions.map((t) => t.category)))], [tripOptions]);
+  const selectedTrip = useMemo(
+    () => tripOptions.find((t) => t.id === selectedTripId),
+    [tripOptions, selectedTripId]
+  );
+  const categories = useMemo(
+    () => ["All", ...Array.from(new Set(tripOptions.map((t) => t.category)))],
+    [tripOptions]
+  );
 
   // Load
   useEffect(() => {
@@ -123,7 +129,10 @@ export default function CalendarToPay({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => { if (selectedDate) refreshMonth(selectedDate); }, [selectedDate]); // eslint-disable-line
+  useEffect(() => {
+    if (selectedDate) refreshMonth(selectedDate);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedDate]);
 
   // Whenever visible month changes via toolbar or calendar nav, refresh that month
   useEffect(() => {
@@ -176,7 +185,9 @@ export default function CalendarToPay({
     return "partial" as const;
   }
   function getCalendarModifiers() {
-    const available: Date[] = []; const partial: Date[] = []; const full: Date[] = [];
+    const available: Date[] = [];
+    const partial: Date[] = [];
+    const full: Date[] = [];
     const base = displayedMonth || selectedDate || new Date();
     const start = new Date(base.getFullYear(), base.getMonth(), 1);
     const end = new Date(base.getFullYear(), base.getMonth() + 1, 0);
@@ -194,6 +205,28 @@ export default function CalendarToPay({
     const d = selectedDate.toISOString().split("T")[0];
     return bookings.filter((b) => b.booking_date === d);
   }, [bookings, selectedDate]);
+
+  // Determine if a trip option conflicts with any booking on the selected date
+  function isTripBookedForSelectedDay(trip: TripOption): boolean {
+    if (!selectedDate) return false;
+    const startH = parseInt(trip.start_time.split(":")[0] || "0", 10);
+    const startM = parseInt(trip.start_time.split(":")[1] || "0", 10);
+    const tripStart = startH * 60 + startM;
+    const tripEnd = tripStart + trip.duration_hr * 60;
+
+    return selectedDateBookings.some((b) => {
+      const [bh, bm] = b.start_time.split(":").map((v) => parseInt(v || "0", 10));
+      const bookingStart = bh * 60 + bm;
+
+      // try to infer booking duration from catalog; default to 120 min if unknown (google-calendar etc.)
+      const bookedTrip = tripOptions.find((t) => t.id === b.trip_option_id);
+      const bookingDuration = bookedTrip?.duration_hr ? bookedTrip.duration_hr * 60 : 120;
+      const bookingEnd = bookingStart + bookingDuration;
+
+      // overlap?
+      return Math.max(tripStart, bookingStart) < Math.min(tripEnd, bookingEnd);
+    });
+  }
 
   function renderBookedRanges() {
     if (!selectedDateBookings.length) {
@@ -299,7 +332,7 @@ export default function CalendarToPay({
           <Dot state={step >= 4 ? (step === 4 ? "active" : "done") : "future"} /> <span className="uppercase tracking-wide">Pay</span>
         </div>
 
-        {/* STEP 1: Calendar (white card, no border) */}
+        {/* STEP 1: Calendar (white card, no outer arrows; arrows live inside calendar card) */}
         {step === 1 && (
           <Card className="relative rounded-2xl border-0 shadow-2xl bg-[hsl(var(--card))]">
             <CardHeader className="pb-2">
@@ -320,7 +353,7 @@ export default function CalendarToPay({
 
               {/* calendar (white card) */}
               <div className="rounded-2xl bg-[hsl(var(--card))] shadow p-4">
-                {/* ▼▼▼ NEW: toolbar arrows INSIDE the calendar card ▼▼▼ */}
+                {/* toolbar arrows INSIDE the calendar card */}
                 <div className="flex items-center justify-between mb-2">
                   <Button
                     variant="secondary"
@@ -340,7 +373,6 @@ export default function CalendarToPay({
                     Next →
                   </Button>
                 </div>
-                {/* ▲▲▲ toolbar END ▲▲▲ */}
 
                 <Calendar
                   mode="single"
@@ -396,7 +428,7 @@ export default function CalendarToPay({
           </Card>
         )}
 
-        {/* STEP 2: Trip + filtering (trip cards keep conic flourish) */}
+        {/* STEP 2: Trip + filtering (with conflict message instead of Select when booked) */}
         {step === 2 && (
           <Card className="relative rounded-2xl border-0 shadow-2xl bg-[hsl(var(--card))]">
             <CardHeader className="flex flex-col gap-3">
@@ -441,6 +473,8 @@ export default function CalendarToPay({
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {(category === "All" ? tripOptions : tripOptions.filter(t => t.category === category)).map((t) => {
                   const isSel = selectedTripId === t.id;
+                  const isUnavailable = !!selectedDate && isTripBookedForSelectedDay(t);
+
                   return (
                     <Card
                       key={t.id}
@@ -448,10 +482,13 @@ export default function CalendarToPay({
                         "relative overflow-hidden cursor-pointer rounded-2xl border-0 shadow-xl transition",
                         "bg-[hsl(var(--card))] hover:shadow-2xl hover:-translate-y-0.5",
                         isSel ? "ring-2 ring-[hsl(var(--primary))]" : "",
+                        isUnavailable ? "opacity-100" : "",
                       ].join(" ")}
-                      onClick={() => setSelectedTripId(t.id)}
+                      onClick={() => {
+                        if (!isUnavailable) setSelectedTripId(t.id);
+                      }}
                     >
-                      {/* trip card keeps conic flourish */}
+                      {/* conic flourish */}
                       <div
                         className="pointer-events-none absolute -top-12 -right-12 w-48 h-48 rounded-full blur-3xl opacity-40"
                         style={{ background: "conic-gradient(from 180deg, hsl(var(--primary)/.35), hsl(var(--accent)/.35))" }}
@@ -464,6 +501,7 @@ export default function CalendarToPay({
                           </div>
                           {t.is_popular && <Badge className="rounded-full">Popular</Badge>}
                         </div>
+
                         <div className="grid grid-cols-2 gap-2 text-sm text-muted-foreground">
                           <div>
                             <span className="block text-foreground/80 font-medium">Duration</span>
@@ -474,20 +512,33 @@ export default function CalendarToPay({
                             {fmt12h(t.start_time)}
                           </div>
                         </div>
+
                         <div className="pt-3 border-t flex items-center justify-between">
                           <span className="text-sm text-muted-foreground">Total</span>
                           <span className="text-xl font-bold tracking-tight">{usd(t.price)}</span>
                         </div>
-                        <Button
-                          className={`w-full mt-1 transition shadow-lg ${
-                            isSel
-                              ? "bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] hover:bg-[hsl(var(--primary)/.9)]"
-                              : "bg-[hsl(var(--accent))] text-[hsl(var(--accent-foreground))] hover:bg-[hsl(var(--accent)/.9)]"
-                          }`}
-                          onClick={() => { setSelectedTripId(t.id); setStep(3); }}
-                        >
-                          {isSel ? "Selected" : "Select"}
-                        </Button>
+
+                        {/* CTA area: either disabled 2-line warning button, or Select/Selected */}
+                        {isUnavailable ? (
+                          <Button
+                            disabled
+                            className="w-full mt-2 bg-[hsl(var(--destructive))/0.08] text-red-600 hover:bg-[hsl(var(--destructive))/0.08] cursor-not-allowed !opacity-100 whitespace-normal leading-snug py-3"
+                          >
+                            <span className="block">This time slot is booked for selected day.</span>
+                            <span className="block">Please pick another trip or date.</span>
+                          </Button>
+                        ) : (
+                          <Button
+                            className={`w-full mt-2 transition shadow-lg ${
+                              isSel
+                                ? "bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] hover:bg-[hsl(var(--primary)/.9)]"
+                                : "bg-[hsl(var(--accent))] text-[hsl(var(--accent-foreground))] hover:bg-[hsl(var(--accent)/.9)]"
+                            }`}
+                            onClick={() => { setSelectedTripId(t.id); setStep(3); }}
+                          >
+                            {isSel ? "Selected" : "Select"}
+                          </Button>
+                        )}
                       </CardContent>
                     </Card>
                   );
@@ -497,7 +548,7 @@ export default function CalendarToPay({
           </Card>
         )}
 
-        {/* STEP 3: Info (white card, no flourish) */}
+        {/* STEP 3: Info */}
         {step === 3 && (
           <Card className="relative rounded-2xl border-0 shadow-2xl bg-[hsl(var(--card))]">
             <CardHeader className="pb-2">
@@ -549,7 +600,7 @@ export default function CalendarToPay({
           </Card>
         )}
 
-        {/* STEP 4: Pay (white card, no flourish) */}
+        {/* STEP 4: Pay */}
         {step === 4 && (
           <Card className="relative rounded-2xl border-0 shadow-2xl bg-[hsl(var(--card))]">
             <CardHeader className="pb-2">
