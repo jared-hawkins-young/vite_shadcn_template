@@ -1,6 +1,7 @@
 import Home from "@/pages/Home";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
+import BookingInline from "@/pages/BookingInline";
 
 export type RouteItem = {
   label: string;
@@ -32,4 +33,5 @@ export const routes: RouteItem[] = [
   { label: "Home", path: "/", component: Home, show: true },
   { label: "About", path: "/about", component: About, show: true },
   { label: "Contact", path: "/contact", component: Contact, show: true },
+  { label: "Book Now", path: "/book-now", component: BookingInline, show: true },
 ];
