@@ -96,6 +96,12 @@ export default function CalendarToPay({
   const [processing, setProcessing] = useState(false);
   const [customer, setCustomer] = useState({ name: "", email: "", phone: "" });
 
+  // Track the month currently shown in the calendar (for arrows)
+  const [displayedMonth, setDisplayedMonth] = useState<Date>(() => {
+    const d = new Date();
+    return new Date(d.getFullYear(), d.getMonth(), 1);
+  });
+
   const selectedTrip = useMemo(() => tripOptions.find((t) => t.id === selectedTripId), [tripOptions, selectedTripId]);
   const categories = useMemo(() => ["All", ...Array.from(new Set(tripOptions.map((t) => t.category)))], [tripOptions]);
 
@@ -118,6 +124,12 @@ export default function CalendarToPay({
   }, []);
 
   useEffect(() => { if (selectedDate) refreshMonth(selectedDate); }, [selectedDate]); // eslint-disable-line
+
+  // Whenever visible month changes via toolbar or calendar nav, refresh that month
+  useEffect(() => {
+    if (displayedMonth) refreshMonth(displayedMonth);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [displayedMonth]);
 
   async function refreshMonth(date?: Date) {
     const cur = date || new Date();
@@ -165,9 +177,9 @@ export default function CalendarToPay({
   }
   function getCalendarModifiers() {
     const available: Date[] = []; const partial: Date[] = []; const full: Date[] = [];
-    const cur = selectedDate || new Date();
-    const start = new Date(cur.getFullYear(), cur.getMonth(), 1);
-    const end = new Date(cur.getFullYear(), cur.getMonth() + 1, 0);
+    const base = displayedMonth || selectedDate || new Date();
+    const start = new Date(base.getFullYear(), base.getMonth(), 1);
+    const end = new Date(base.getFullYear(), base.getMonth() + 1, 0);
     for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
       const a = getDateAvailability(new Date(d));
       if (a === "available") available.push(new Date(d));
@@ -252,6 +264,13 @@ export default function CalendarToPay({
     return <div className={`h-2.5 w-2.5 rounded-full ${cls}`} />;
   };
 
+  // Helpers for toolbar arrows inside the calendar card
+  const prevMonth = () =>
+    setDisplayedMonth(new Date(displayedMonth.getFullYear(), displayedMonth.getMonth() - 1, 1));
+  const nextMonth = () =>
+    setDisplayedMonth(new Date(displayedMonth.getFullYear(), displayedMonth.getMonth() + 1, 1));
+  const monthLabel = displayedMonth.toLocaleString(undefined, { month: "long", year: "numeric" });
+
   return (
     <section className={className ?? "relative py-16"}>
       {/* soft backdrop */}
@@ -301,10 +320,37 @@ export default function CalendarToPay({
 
               {/* calendar (white card) */}
               <div className="rounded-2xl bg-[hsl(var(--card))] shadow p-4">
+                {/* ▼▼▼ NEW: toolbar arrows INSIDE the calendar card ▼▼▼ */}
+                <div className="flex items-center justify-between mb-2">
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={prevMonth}
+                    className="bg-[hsl(var(--accent))] text-[hsl(var(--accent-foreground))] hover:bg-[hsl(var(--accent)/.9)]"
+                  >
+                    ← Prev
+                  </Button>
+                  <div className="text-sm font-medium">{monthLabel}</div>
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={nextMonth}
+                    className="bg-[hsl(var(--accent))] text-[hsl(var(--accent-foreground))] hover:bg-[hsl(var(--accent)/.9)]"
+                  >
+                    Next →
+                  </Button>
+                </div>
+                {/* ▲▲▲ toolbar END ▲▲▲ */}
+
                 <Calendar
                   mode="single"
                   selected={selectedDate}
-                  onSelect={setSelectedDate}
+                  onSelect={(d) => {
+                    setSelectedDate(d);
+                    if (d) setDisplayedMonth(new Date(d.getFullYear(), d.getMonth(), 1)); // keep month in sync
+                  }}
+                  month={displayedMonth}
+                  onMonthChange={(m) => setDisplayedMonth(new Date(m.getFullYear(), m.getMonth(), 1))}
                   disabled={(d) => d < new Date()}
                   modifiers={getCalendarModifiers()}
                   modifiersClassNames={{
@@ -315,7 +361,7 @@ export default function CalendarToPay({
                   classNames={{
                     months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
                     month: "space-y-4 w-full",
-                    caption: "flex justify-center pt-1 relative items-center text-lg font-medium",
+                    caption: "sr-only", // hide built-in caption/nav to avoid duplicate arrows
                     caption_label: "text-lg font-medium",
                     table: "w-full border-collapse space-y-1",
                     head_row: "flex w-full",
@@ -562,5 +608,4 @@ function makeDummyBookingsForMonthExample(date: Date): Booking[] {
     customer_name: "Reserved",
     status: "confirmed",
   }];
-}
-*/
+}*/
