@@ -1,5 +1,5 @@
 // src/lib/supabaseEdge.ts
-import type { TripOption, AvailabilityData, Booking } from "./bookingTypes";
+import type { TripOption, AvailabilityData } from "./bookingTypes";
 
 export type EdgeEnv = {
   tenantId: string;

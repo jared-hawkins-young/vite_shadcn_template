@@ -524,8 +524,7 @@ export default function CalendarToPay({
                             disabled
                             className="w-full mt-2 bg-[hsl(var(--destructive))/0.08] text-red-600 hover:bg-[hsl(var(--destructive))/0.08] cursor-not-allowed !opacity-100 whitespace-normal leading-snug py-3"
                           >
-                            <span className="block">This time slot is booked for selected day.</span>
-                            <span className="block">Please pick another trip or date.</span>
+                            <span className="block">This time slot is booked for selected day. Please pick another trip or date.</span>
                           </Button>
                         ) : (
                           <Button
