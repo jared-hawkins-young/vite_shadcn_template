@@ -51,7 +51,6 @@ export function BlogGrid({
   cta,
   syncWithQueryParam = true,
   queryKey = "post",
-  minReadMinutes = 3, // accepted but not enforced anymore
 }: BlogGridProps) {
   const enriched = useMemo(
     () =>
