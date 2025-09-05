@@ -6,39 +6,51 @@ import { CTASection } from "@/components/sections/CTASection";
 export default function Contact() {
   return (
     <>
+      <title>Contact Demo Template - Get Started Today</title>
+      <meta
+        name="description"
+        content="Contact us to learn more about our React template with TypeScript and shadcn/ui. Get started building professional websites today."
+      />
+      <link rel="canonical" href="https://demo-template.com/contact" />
+      <meta property="og:title" content="Contact Demo Template - Get Started Today" />
+      <meta property="og:description" content="Contact us to learn more about our React template with TypeScript and shadcn/ui. Get started building professional websites today." />
+      <meta property="og:url" content="https://demo-template.com/contact" />
+      <meta property="og:image" content="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&h=630&q=80&auto=format&fit=crop" />
+      <meta name="twitter:card" content="summary_large_image" />
+
       <Hero
         eyebrow="Get in touch"
-        title="Call for your free consultation"
-        subtitle="I'll review your insurance offer and vehicle details to give you an honest assessment of whether an appraisal makes sense for your situation."
+        title="Contact our demo template team"
+        subtitle="Have questions about our React TypeScript template? Need help getting started? We're here to help you build amazing websites."
         imageUrl="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1600&q=80&auto=format&fit=crop"
         overlay
         align="center"
         height="md"
-        ctaPrimary={{ label: "Call 704-216-0081", to: "tel:704-216-0081" }}
-        ctaSecondary={{ label: "Send a message", to: "#contact-form" }}
+        ctaPrimary={{ label: "Send Message", to: "#contact-form" }}
+        ctaSecondary={{ label: "View Demo", to: "/" }}
       />
 
       <ContactBlock
         heading="Contact Information"
-        subheading="Reach out for your free consultation"
+        subheading="Reach out for template support and questions"
         channels={[
-          { type: "phone", value: "704-216-0081" },
-          { type: "email", value: "csi@csi-nc.net" },
-          { type: "address", value: "Serving all of North Carolina" },
-          { type: "hours", value: "Mon–Fri 10am–6pm, weekends potluck calls" },
+          { type: "email", value: "hello@demo-template.com" },
+          { type: "address", value: "Available Worldwide" },
+          { type: "hours", value: "Mon–Fri 9am–5pm EST" },
         ]}
       />
 
       <div id="contact-form">
         <ContactForm
-          heading="Send me a message"
-          subheading="Prefer to start with a message? Include your vehicle details and insurance offer information."
-          emailTo="csi@csi-nc.net"
-          subjectPrefix="Auto Appraisal Inquiry"
+          heading="Send us a message"
+          subheading="Have questions about the template? Need help getting started? We're here to help."
+          emailTo="hello@demo-template.com"
+          subjectPrefix="Demo Template Inquiry"
           services={[
-            { value: "total-loss", label: "Total Loss Appraisal" },
-            { value: "diminished-value", label: "Diminished Value Claim" },
-            { value: "consultation", label: "General Consultation" },
+            { value: "general", label: "General Question" },
+            { value: "technical", label: "Technical Support" },
+            { value: "customization", label: "Customization Help" },
+            { value: "license", label: "License Question" },
             { value: "other", label: "Other" },
           ]}
         />
