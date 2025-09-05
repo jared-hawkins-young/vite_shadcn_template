@@ -142,6 +142,34 @@ Sitemap: https://catchandcruisenc.com/sitemap.xml
 
 (If a client requests explicit LLM allowances, add GPTBot, Google-Extended, ClaudeBot, PerplexityBot, CCBot, etc., each with Allow: /.)
 
+---
+
+## Additional SEO Requirements
+
+- **Meta descriptions:**  
+  Every page **must include a `<meta name="description">` tag** using `react-helmet-async`.  
+  - Keep it unique, ≤155 characters.  
+  - Include the target keyword (service + city) and a clear value proposition.  
+  - Example:  
+    ```tsx
+    <Helmet>
+      <title>Wilmington Fishing Charters | Catch & Cruise NC</title>
+      <meta
+        name="description"
+        content="Top-rated Wilmington & Wrightsville Beach fishing charters, leisure cruises, and sandbar adventures. Book online or call (910) 233-3668."
+      />
+    </Helmet>
+    ```
+
+- **Descriptive link text:**  
+  All internal and external links must use **meaningful anchor text** that describes the destination.  
+  - Avoid generic text like “click here” or “learn more.”  
+  - Use phrases such as “Wilmington fishing charter trip options,” “Contact a Wilmington charter captain,” or “Book a Wrightsville Beach fishing trip.”  
+  - Example with React Router:  
+    ```tsx
+    <Link to="/trip-options">Explore Wilmington fishing charter trip options</Link>
+    ```
+
 ⸻
 
 Example task → expected edits
@@ -165,4 +193,4 @@ Validation checklist
 	•	robots.txt present and points to sitemap.
 	•	Public-safe: no secrets or private URLs.
 
-    
+
