@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Include EVERY public route; update when routes change -->
+  <url><loc>https://demo-template.com/</loc></url>
+  <url><loc>https://demo-template.com/about</loc></url>
+  <url><loc>https://demo-template.com/contact</loc></url>
+  <url><loc>https://demo-template.com/book-now</loc></url>
+  <url><loc>https://demo-template.com/blog</loc></url>
+  <url><loc>https://demo-template.com/booking/success</loc></url>
+  <url><loc>https://demo-template.com/booking/cancelled</loc></url>
+</urlset>

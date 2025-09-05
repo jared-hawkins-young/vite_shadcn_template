@@ -1,154 +1,168 @@
-# Copilot Instructions
+# Copilot Instructions (Expanded)
 
 ## Purpose
 Copilot may **read the entire repository** to learn component APIs, but may **only write** to:
 
-- src/app/nav.config.ts
-- src/pages/**/*.tsx
+- `src/app/nav.config.ts`
+- `src/pages/**/*.tsx`
+- `public/sitemap.xml`
+- `public/robots.txt`
 
 Do **not** modify any other files. Do **not** run scripts or configure CI/CD.
 
 ---
 
 ## What you can edit
-1. **Navigation config** – src/app/nav.config.ts  
-   - Import page components from src/pages/**.  
-   - Add or modify items in routes.  
+1. **Navigation config** – `src/app/nav.config.ts`  
+   - Import page components from `src/pages/**`.  
+   - Add or modify items in `routes`.  
    - Update brand, header, or footer **only if explicitly asked**.  
 
-2. **Pages** – src/pages/**/*.tsx  
-   - Compose pages using existing sections from @/components/sections/*.  
-   - Use theme tokens (e.g., bg-background, text-foreground).  
-   - No raw hex colors unless already tokenized in theme.config.  
+2. **Pages** – `src/pages/**/*.tsx`  
+   - Compose pages using existing sections from `@/components/sections/*`.  
+   - Use theme tokens (e.g., `bg-background`, `text-foreground`).  
+   - **Styling rule:** never use hard line borders on containers (no `border`, `border-*`). Use spacing, shadows, rounded corners, and background tokens for separation.  
+   - **Tone:** marketing copy must be formal and energetic.  
+   - **Images:** Unsplash URLs are allowed.  
+   - **SEO-first:** Each page must include proper `<title>`, `<meta name="description">`, one `<h1>`, logical H2/H3s, internal links, descriptive `alt` text, and (where appropriate) JSON-LD schema.
+
+3. **Public assets (SEO)**  
+   - **`public/sitemap.xml`**: keep updated with **every** public route.  
+   - **`public/robots.txt`**: must allow crawling and point to the sitemap.
 
 ---
 
 ## Hard rules
-- Router: must use react-router-dom. No Next.js APIs/imports.  
-- Components: use existing sections exactly as typed. Always check props in source first.  
-- Tone: marketing copy must be formal and energetic.  
-- Images: Unsplash URLs are allowed.  
-- Transcript: treat the transcript/brief as the only source of truth.  
-- Security: no secrets, keys, or private URLs.  
-- No scripts: do not run build/dev or touch tooling/CI.  
+- **Router:** must use `react-router-dom`. No Next.js APIs/imports.  
+- **Components:** use existing sections exactly as typed. Always check props in `src/components/sections/*`.  
+- **No hard line borders:** avoid `border` classes on layout containers. Use padding/gap/rounded/shadow/background tokens instead.  
+- **Theme tokens only:** no raw hex unless already tokenized in the theme.  
+- **Transcript as truth:** treat transcript/brief as the only content source.  
+- **Security:** no secrets, keys, or private URLs.  
+- **No scripts:** do not run build/dev or touch tooling/CI.
+
+---
+
+## SEO requirements (every page)
+- **Head tags:** Provide `<title>` (≤60 chars) and `<meta name="description">` (≤155 chars). Prefer `react-helmet-async` per page.  
+- **Headings:** Exactly one **H1** per page; H2/H3 for sections. Include city/region for local SEO when relevant.  
+- **Canonical:** Add `<link rel="canonical">` for primary pages.  
+- **Open Graph / Twitter:** Provide `og:title`, `og:description`, `og:url`, and `og:image` (1200×630). Include Twitter `summary_large_image`.  
+- **Schema JSON-LD:**  
+  - Home: `Organization` or `LocalBusiness` with `name`, `url`, `telephone`, `logo`, `image`, `areaServed`.  
+  - Service/Trips/FAQs: add `FAQPage` if helpful.  
+  - Blog posts: `Article` when applicable.  
+- **Images:** Descriptive `alt` (include location/species/offer when relevant).  
+- **Internal links:** Link to related pages with meaningful anchor text.  
+- **Performance:** Use responsive images, lazy loading when available, concise copy, avoid heavy inline styles.  
+- **Sitemap & robots:** Update `public/sitemap.xml` with route changes; ensure `public/robots.txt` references the sitemap.
 
 ---
 
 ## Nav config contract
-- File: src/app/nav.config.ts  
-- Exports:  
-    export type RouteItem = {  
-      label: string;  
-      path: string;  
-      component: React.ComponentType;  
-      show?: boolean;  
-      cta?: { label: string; to: string } | null;  
-    }  
+**File:** `src/app/nav.config.ts`
 
-    export const routes: RouteItem[] = [...]  
+```ts
+export type RouteItem = {
+  label: string;
+  path: string;
+  component: React.ComponentType;
+  show?: boolean;
+  cta?: { label: string; to: string } | null;
+}
 
-- When adding a new page:  
-  1. import NewPage from "@/pages/NewPage";  
-  2. Add to routes: { label: "New Page", path: "/new-page", component: NewPage, show: true }  
-  3. Only adjust brand/header/footer if the task explicitly asks.  
+export const routes: RouteItem[] = [];
+When adding a new page:
+	1.	import NewPage from "@/pages/NewPage";
+	2.	Add to routes: { label: "New Page", path: "/new-page", component: NewPage, show: true }
+	3.	Only adjust brand/header/footer if explicitly asked.
+	4.	Update public/sitemap.xml to include /new-page.
 
----
+⸻
 
-## Page composition guidelines
-- Imports: import { Hero } from "@/components/sections/Hero";  
-- Structure:  
-    export default function NewPage() {  
-      return (  
-        <>  
-          <Hero ... />  
-          {/* Add sections as needed */}  
-        </>  
-      );  
-    }  
+Page composition guidelines
 
----
+Imports example:
 
-## Component cheat-sheet
-(Always confirm props by reading component source in src/components/sections/*.)
+import { Hero } from "@/components/sections/Hero";
+import { ServiceCards } from "@/components/sections/ServiceCards";
+import { Testimonials } from "@/components/sections/Testimonials";
+import { FAQ } from "@/components/sections/FAQ";
+import { CTASection } from "@/components/sections/CTASection";
 
-- Hero: eyebrow?, title*, subtitle?, imageUrl?, height?, align?, overlay?, ctaPrimary?, ctaSecondary?. Use overlay + white text when image background is used.  
-- FeatureShowcase: Grid of cards. Items: { icon?, title*, desc* }.  
-- ServiceCards: Items: { icon?, title*, desc*, price?, cta? }.  
-- PricingTiers: Tiers: { name, price, period, features[], cta }.  
-- Testimonials: Items: { who, when, text }.  
-- MediaCarousel: Items: { src, caption? }, with aspect.  
-- FAQ: Items: { id, icon, question, answer }. Answers use text-muted-foreground.  
-- CTASection: eyebrow?, heading*, subheading?, button.  
-- ContactBlock: Channels: { type: "phone"|"email"|"address"|"hours", value: string }.  
-- ContactForm: emailTo, subjectPrefix, services[]. Placeholder option must have value="". Menu has solid bg and scroll.  
-- DividerBand: Full-bleed with background image. Pass children (not content prop).  
-- ProcessTimeline: Steps: { title, description, icon?, badge? }.  
-- TeamShowcase: Members: { name, role, avatarUrl? }.  
-- MapEmbed: Props: { query?, lat?, lng?, zoom?, heading?, subheading?, height?, variant? }.  
-- BlogGrid: Items: { title, excerpt, href, imageUrl?, date? }.  
+Structure template (no hard borders):
 
----
+export default function NewPage() {
+  return (
+    <>
+      <Hero
+        eyebrow="Eyebrow"
+        title="Primary H1-worthy headline"
+        subtitle="Supporting promise with location/offer clarity"
+        imageUrl="https://images.unsplash.com/photo-..."
+        overlay
+        align="center"
+        height="md"
+        ctaPrimary={{ label: "Book now", to: "/book-now" }}
+      />
 
-## Example task → expected edits
-Task: “Add a Services page with a Hero, ServiceCards, and CTASection, and wire it into nav.”
+      {/* Add sections as needed; use spacing/shadows/background tokens, not borders */}
+      <ServiceCards /* ...props */ />
+      <Testimonials /* ...props */ />
+      <FAQ /* ...props */ />
+      <CTASection /* ...props */ />
+    </>
+  );
+}
 
-1. Create src/pages/Services.tsx:  
+Required public files (for catchandcruisenc.com)
 
-    import { Hero } from "@/components/sections/Hero";  
-    import { ServiceCards } from "@/components/sections/ServiceCards";  
-    import { CTASection } from "@/components/sections/CTASection";  
+public/sitemap.xml
 
-    export default function Services() {  
-      return (  
-        <>  
-          <Hero  
-            eyebrow="What we do"  
-            title="Services designed to grow your business"  
-            subtitle="Clear packages, fast delivery, and room to scale."  
-            imageUrl="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1600&q=80&auto=format&fit=crop"  
-            overlay  
-            align="center"  
-            height="md"  
-            ctaPrimary={{ label: "Get a quote", to: "/contact" }}  
-          />  
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Include EVERY public route; update when routes change -->
+  <url><loc>https://catchandcruisenc.com/</loc></url>
+  <url><loc>https://catchandcruisenc.com/about</loc></url>
+  <url><loc>https://catchandcruisenc.com/trip-options</loc></url>
+  <url><loc>https://catchandcruisenc.com/media</loc></url>
+  <url><loc>https://catchandcruisenc.com/contact</loc></url>
+  <url><loc>https://catchandcruisenc.com/book-now</loc></url>
+  <url><loc>https://catchandcruisenc.com/booking-success</loc></url>
+  <url><loc>https://catchandcruisenc.com/booking-cancelled</loc></url>
+  <url><loc>https://catchandcruisenc.com/blog</loc></url>
+</urlset>
 
-          <ServiceCards  
-            heading="Pick your starting point"  
-            subheading="Add more as you grow"  
-            items={[  
-              { icon: "🌐", title: "Website Design", desc: "Fast, accessible, SEO-friendly.", price: "From $1,500", cta: { label: "Learn more", to: "/contact" } },  
-              { icon: "📈", title: "Local SEO", desc: "Be found where customers search.", price: "From $500/mo", cta: { label: "Learn more", to: "/contact" } },  
-              { icon: "⚙️", title: "Automation", desc: "Connect tools & save time.", price: "Custom", cta: { label: "Discuss", to: "/contact" } }  
-            ]}  
-          />  
+public/robots.txt
 
-          <CTASection  
-            eyebrow="Next step"  
-            heading="Ready to move forward?"  
-            subheading="Tell us what you need—we’ll map the fastest path to live."  
-            button={{ label: "Contact us", to: "/contact" }}  
-          />  
-        </>  
-      );  
-    }  
+User-agent: *
+Allow: /
 
-2. Update src/app/nav.config.ts:  
+Sitemap: https://catchandcruisenc.com/sitemap.xml
 
-    import Services from "@/pages/Services";  
+(If a client requests explicit LLM allowances, add GPTBot, Google-Extended, ClaudeBot, PerplexityBot, CCBot, etc., each with Allow: /.)
 
-    export const routes = [  
-      // ...existing  
-      { label: "Services", path: "/services", component: Services, show: true },  
-    ];  
+⸻
 
----
+Example task → expected edits
 
-## Validation checklist
-- Props match component types.  
-- Imports use @/components/..., @/pages/..., and react-router-dom.  
-- Theme tokens used, no arbitrary hex.  
-- ContactForm placeholder has value="".  
-- MapEmbed only uses supported props.  
-- DividerBand uses children (not a content prop).  
-- No server-only code or Next.js imports.  
-- Public-safe: no secrets or private URLs.  
+Task: “Add a Services page with a Hero, ServiceCards, CTASection; wire it into nav; update sitemap & robots.”
+	1.	Create src/pages/Services.tsx with sections (no borders, SEO meta via Helmet).
+	2.	Update src/app/nav.config.ts to include /services.
+	3.	Update public/sitemap.xml to add /services.
+	4.	Confirm public/robots.txt includes the correct Sitemap: URL.
+
+⸻
+
+Validation checklist
+	•	Props match component types in @/components/sections/*.
+	•	Imports use @/components/..., @/pages/..., and react-router-dom.
+	•	No hard borders on containers; use spacing/shadows/backgrounds.
+	•	Theme tokens used, no arbitrary hex.
+	•	SEO: title, meta description, H1, OG/Twitter, canonical, internal links, descriptive alt.
+	•	JSON-LD on Home (LocalBusiness/Organization), FAQPage on applicable pages.
+	•	Sitemap updated whenever routes change.
+	•	robots.txt present and points to sitemap.
+	•	Public-safe: no secrets or private URLs.
+
+    
