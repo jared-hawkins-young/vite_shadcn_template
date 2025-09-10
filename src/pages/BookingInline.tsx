@@ -1,4 +1,5 @@
 // src/pages/BookingInline.tsx
+import { Helmet } from "react-helmet";
 import CalendarToPay from "@/components/sections/CalendarToPay"; // you named it CalendarToPay.tsx
 import type { EdgeEnv } from "@/lib/supabaseEdge";
 
@@ -15,13 +16,29 @@ export default function BookingInline() {
     !env.supabaseUrl || !env.supabaseAnonKey || env.supabaseUrl === "" || env.supabaseAnonKey === "";
 
   return (
-    <div className="min-h-screen bg-background">
-      <CalendarToPay
-        env={env}
-        useDummy={useDummy}                      // remove or set to false once keys are set
-        onSuccessNavigateTo="/booking/success"   // existing success page
-        onCancelNavigateTo="/booking/cancelled"  // existing cancel page
-      />
-    </div>
+    <>
+      <Helmet>
+        <title>Book Now - Demo Template Booking System</title>
+        <meta
+          name="description"
+          content="Book your appointment using our integrated booking system. Powered by our React TypeScript template with calendar scheduling functionality."
+        />
+        <link rel="canonical" href="https://demo-template.com/book-now" />
+        <meta property="og:title" content="Book Now - Demo Template Booking System" />
+        <meta property="og:description" content="Book your appointment using our integrated booking system. Powered by our React TypeScript template with calendar scheduling functionality." />
+        <meta property="og:url" content="https://demo-template.com/book-now" />
+        <meta property="og:image" content="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=630&q=80&auto=format&fit=crop" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Helmet>
+      
+      <div className="min-h-screen bg-background">
+        <CalendarToPay
+          env={env}
+          useDummy={useDummy}                      // remove or set to false once keys are set
+          onSuccessNavigateTo="/booking/success"   // existing success page
+          onCancelNavigateTo="/booking/cancelled"  // existing cancel page
+        />
+      </div>
+    </>
   );
 }

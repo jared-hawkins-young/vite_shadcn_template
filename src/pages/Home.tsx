@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import { Hero } from "@/components/sections/Hero";
 import { FeatureShowcase } from "@/components/sections/FeatureShowcase";
 import { ServiceCards } from "@/components/sections/ServiceCards";
@@ -7,27 +8,29 @@ import { CTASection } from "@/components/sections/CTASection";
 export default function Home() {
   return (
     <>
-      <title>Demo Template - Modern React Website Builder</title>
-      <meta
-        name="description"
-        content="Professional React template with TypeScript, shadcn/ui components, and modern design. Build stunning websites quickly with our demo template."
-      />
-      <link rel="canonical" href="https://demo-template.com/" />
-      <meta property="og:title" content="Demo Template - Modern React Website Builder" />
-      <meta property="og:description" content="Professional React template with TypeScript, shadcn/ui components, and modern design. Build stunning websites quickly with our demo template." />
-      <meta property="og:url" content="https://demo-template.com/" />
-      <meta property="og:image" content="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=630&q=80&auto=format&fit=crop" />
-      <meta name="twitter:card" content="summary_large_image" />
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          "name": "Demo Template",
-          "url": "https://demo-template.com",
-          "logo": "https://demo-template.com/vite.svg",
-          "description": "Professional React template with TypeScript, shadcn/ui components, and modern design tools for building stunning websites."
-        })}
-      </script>
+      <Helmet>
+        <title>Demo Template - Modern React Website Builder</title>
+        <meta
+          name="description"
+          content="Professional React template with TypeScript, shadcn/ui components, and modern design. Build stunning websites quickly with our demo template."
+        />
+        <link rel="canonical" href="https://demo-template.com/" />
+        <meta property="og:title" content="Demo Template - Modern React Website Builder" />
+        <meta property="og:description" content="Professional React template with TypeScript, shadcn/ui components, and modern design. Build stunning websites quickly with our demo template." />
+        <meta property="og:url" content="https://demo-template.com/" />
+        <meta property="og:image" content="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=630&q=80&auto=format&fit=crop" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Demo Template",
+            "url": "https://demo-template.com",
+            "logo": "https://demo-template.com/vite.svg",
+            "description": "Professional React template with TypeScript, shadcn/ui components, and modern design tools for building stunning websites."
+          })}
+        </script>
+      </Helmet>
 
       <Hero
         eyebrow="Welcome to our Demo"

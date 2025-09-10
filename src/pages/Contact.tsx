@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import { Hero } from "@/components/sections/Hero";
 import { ContactForm } from "@/components/sections/ContactForm";
 import { ContactBlock } from "@/components/sections/ContactBlock";
@@ -6,17 +7,19 @@ import { CTASection } from "@/components/sections/CTASection";
 export default function Contact() {
   return (
     <>
-      <title>Contact Demo Template - Get Started Today</title>
-      <meta
-        name="description"
-        content="Contact us to learn more about our React template with TypeScript and shadcn/ui. Get started building professional websites today."
-      />
-      <link rel="canonical" href="https://demo-template.com/contact" />
-      <meta property="og:title" content="Contact Demo Template - Get Started Today" />
-      <meta property="og:description" content="Contact us to learn more about our React template with TypeScript and shadcn/ui. Get started building professional websites today." />
-      <meta property="og:url" content="https://demo-template.com/contact" />
-      <meta property="og:image" content="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&h=630&q=80&auto=format&fit=crop" />
-      <meta name="twitter:card" content="summary_large_image" />
+      <Helmet>
+        <title>Contact Demo Template - Get Started Today</title>
+        <meta
+          name="description"
+          content="Contact us to learn more about our React template with TypeScript and shadcn/ui. Get started building professional websites today."
+        />
+        <link rel="canonical" href="https://demo-template.com/contact" />
+        <meta property="og:title" content="Contact Demo Template - Get Started Today" />
+        <meta property="og:description" content="Contact us to learn more about our React template with TypeScript and shadcn/ui. Get started building professional websites today." />
+        <meta property="og:url" content="https://demo-template.com/contact" />
+        <meta property="og:image" content="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&h=630&q=80&auto=format&fit=crop" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Helmet>
 
       <Hero
         eyebrow="Get in touch"

@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -5,17 +6,19 @@ import { Button } from "@/components/ui/button";
 export default function About() {
   return (
     <>
-      <title>About Demo Template - Modern React Development</title>
-      <meta
-        name="description"
-        content="Learn about our modern React template built with TypeScript, Vite, and shadcn/ui. Perfect for developers building professional websites quickly."
-      />
-      <link rel="canonical" href="https://demo-template.com/about" />
-      <meta property="og:title" content="About Demo Template - Modern React Development" />
-      <meta property="og:description" content="Learn about our modern React template built with TypeScript, Vite, and shadcn/ui. Perfect for developers building professional websites quickly." />
-      <meta property="og:url" content="https://demo-template.com/about" />
-      <meta property="og:image" content="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&h=630&q=80&auto=format&fit=crop" />
-      <meta name="twitter:card" content="summary_large_image" />
+      <Helmet>
+        <title>About Demo Template - Modern React Development</title>
+        <meta
+          name="description"
+          content="Learn about our modern React template built with TypeScript, Vite, and shadcn/ui. Perfect for developers building professional websites quickly."
+        />
+        <link rel="canonical" href="https://demo-template.com/about" />
+        <meta property="og:title" content="About Demo Template - Modern React Development" />
+        <meta property="og:description" content="Learn about our modern React template built with TypeScript, Vite, and shadcn/ui. Perfect for developers building professional websites quickly." />
+        <meta property="og:url" content="https://demo-template.com/about" />
+        <meta property="og:image" content="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&h=630&q=80&auto=format&fit=crop" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Helmet>
 
       <main className="min-h-screen">
         <section className="relative py-20">

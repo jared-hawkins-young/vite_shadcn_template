@@ -1,9 +1,25 @@
 // src/pages/Blog.tsx
+import { Helmet } from "react-helmet";
 import { BlogGrid } from "@/components/sections/BlogGrid";
 
 export default function Blog() {
   return (
-    <main className="min-h-screen">
+    <>
+      <Helmet>
+        <title>Blog - Demo Template Insights & Tips</title>
+        <meta
+          name="description"
+          content="Learn about React development, TypeScript best practices, and modern web design with our demo template blog posts and tutorials."
+        />
+        <link rel="canonical" href="https://demo-template.com/blog" />
+        <meta property="og:title" content="Blog - Demo Template Insights & Tips" />
+        <meta property="og:description" content="Learn about React development, TypeScript best practices, and modern web design with our demo template blog posts and tutorials." />
+        <meta property="og:url" content="https://demo-template.com/blog" />
+        <meta property="og:image" content="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=1200&h=630&q=80&auto=format&fit=crop" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Helmet>
+      
+      <main className="min-h-screen">
       <BlogGrid
         heading="Latest Insights"
         subheading="In-depth, field-tested playbooks you can apply today."
@@ -77,5 +93,6 @@ Finally, measure like a business owner. Track impressions and calls from Google 
         cta={null}
       />
     </main>
+    </>
   );
 }
